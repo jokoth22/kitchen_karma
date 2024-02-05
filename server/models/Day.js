@@ -32,6 +32,13 @@ const daySchema = new Schema(
                 message: `{Value} is not an integer value for fatsGoal`,
             }
         },
+        calorieGoal: {
+            type: Number,
+            validate: {
+                validator: Number.isInteger,
+                message: `{Value} is not an integer value for caloriesGoal`,
+            }
+        },
         savedMeals: [mealSchema]
     }
 );
