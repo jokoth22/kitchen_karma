@@ -50,9 +50,9 @@ const typeDefs = `
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addMeal(mealId: ID!, input: MealMacros): Day
-    deleteMeal(mealId: ID!): Day
+    removeMeal(mealId: ID!): Day
     addDay(dayId: ID!): User
-    deleteDay (dayId: ID!): User
+    removeDay (dayId: ID!): User
   }
 `;
 

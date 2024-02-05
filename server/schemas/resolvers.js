@@ -72,13 +72,47 @@ const resolvers = {
           {_id: dayId },
           {
             $addToSet: {
-              savedMeals: {}
-            }
+              savedMeals: {mealId, MealMacros},
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
           }
-        )
+        );
       }
       throw AuthenticationError;
-      ('You need to be logged in!');
+    },
+    removeDay: async (parent, { dayId }, context) => {
+      if (context.user) {
+        const day = await Day.findOneAndDelete({
+          _id: dayId,
+        });
+
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { mealsByDay: day._id } }
+        );
+
+        return day;
+      }
+      throw AuthenticationError;
+    },
+    removeMeal: async (parent, { dayId, mealId }, context) => {
+      if (context.user) {
+        return Day.findOneAndUpdate(
+          { _id: dayId },
+          {
+            $pull: {
+              savedMeals: {
+                _id: mealId,
+              },
+            },
+          },
+          { new: true }
+        );
+      }
+      throw AuthenticationError;
     },
   },
 };
