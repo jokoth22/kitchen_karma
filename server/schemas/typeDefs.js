@@ -37,8 +37,8 @@ const typeDefs = `
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addMeal(dayID: ID!, mealId: ID!): Day
-    removeMeal(mealId: ID!): Day
+    addMeal(dayID: ID!, mealId: ID!, mealName: String!): Day
+    removeMeal(dayID: ID!, mealId: ID!): Day
     addDay(dayId: ID!): User
     removeDay (dayId: ID!): User
   }
