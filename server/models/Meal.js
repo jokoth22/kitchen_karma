@@ -10,7 +10,7 @@ const mealSchema = new Schema(
             type: Number,
             validate: {
                 validator: Number.isInteger,
-                message: `{Value} is not an integer value for carbGoal`
+                message: `{Value} is not an integer value for calories`
             }
         },
         carbs: {
@@ -24,16 +24,20 @@ const mealSchema = new Schema(
             type: Number,
             validate: {
                 validator: Number.isInteger,
-                message: `{Value} is not an integer value for carbGoal`
+                message: `{Value} is not an integer value for proteinGoal`
             }
         },
         fats: {
             type: Number,
             validate: {
                 validator: Number.isStorage,
-                message: `{Value} is not an integer value for carbGoal`
+                message: `{Value} is not an integer value for fatsGoal`
             }
-        }
+        },
+        completed: {
+            type: Boolean,
+            default: false
+        },
     }
 );
 

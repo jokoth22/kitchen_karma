@@ -42,7 +42,7 @@ userSchema.methods.isCorrectPassword = async function (password) {
     return bcrypt.compare(password, this.password);
 };
 
-userSchema.virtual('DayCount').get(function () {
+userSchema.virtual('dayCount').get(function () {
     return this.createdDays.length;
 });
 
