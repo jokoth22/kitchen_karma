@@ -1,5 +1,4 @@
 const { Schema } = require('mongoose');
-const bcrypt = require('bcrypt');
 
 const mealSchema = require('./Meal');
 const dateFormat = require('../utils/dateFormat');
@@ -42,5 +41,9 @@ const daySchema = new Schema(
         savedMeals: [mealSchema]
     }
 );
+
+daySchema.virtual('mealCount').get(function() {
+    return this.savedMeals.length;
+})
 
 module.exports = daySchema;
