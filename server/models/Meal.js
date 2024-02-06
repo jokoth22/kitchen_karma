@@ -30,7 +30,7 @@ const mealSchema = new Schema(
         fats: {
             type: Number,
             validate: {
-                validator: Number.isStorage,
+                validator: Number.isInteger,
                 message: `{Value} is not an integer value for Fats`
             }
         },
