@@ -66,13 +66,13 @@ const resolvers = {
       throw AuthenticationError;
       ('You need to be logged in!');
     },
-    addMeal: async (parent, {dayId, mealId, MealMacros}, context) => {
+    addMeal: async (parent, {dayId, mealId}, context) => {
       if(context.user){
         return Day.findOneAndUpdate (
           {_id: dayId },
           {
             $addToSet: {
-              savedMeals: {mealId, MealMacros},
+              savedMeals: {mealId},
             },
           },
           {

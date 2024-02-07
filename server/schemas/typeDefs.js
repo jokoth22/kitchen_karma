@@ -19,18 +19,6 @@ const typeDefs = `
   type Meal {
     _id: ID
     mealName: String
-    calories: Int
-    carbs: Int
-    protein: Int
-    fats: Int
-  }
-
-  input MealMacros {
-    mealName: String
-    calories: Int
-    carbs: Int
-    protein: Int
-    fats: Int
   }
 
   type Auth {
@@ -49,8 +37,8 @@ const typeDefs = `
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addMeal(mealId: ID!, input: MealMacros): Day
-    removeMeal(mealId: ID!): Day
+    addMeal(dayID: ID!, mealId: ID!, mealName: String!): Day
+    removeMeal(dayID: ID!, mealId: ID!): Day
     addDay(dayId: ID!): User
     removeDay (dayId: ID!): User
   }
