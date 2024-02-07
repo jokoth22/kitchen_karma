@@ -1,10 +1,11 @@
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import App from './App.jsx'
-import Home from './pages/Home.jsx';
 import './index.css'
 
-// routes go here, reference Stripe activity 23
+// router paths
+import App from './App.jsx'
+import Home from './pages/home/Home.jsx';
+import Meals from './pages/meals/Meals.jsx';
 
 // creates a router - component loads based on path
 const router = createBrowserRouter([
@@ -16,15 +17,10 @@ const router = createBrowserRouter([
         index: true, 
         element: <Home />
       }, 
-      // example "home" do this for rest of routes to other jsx pages , comment out when running
       {
-        path: '/home',
-        element: <Home />
-      },
-      // {
-      //   path: '/',
-      //   element: < />
-      // },
+        path: '/meals',
+        element: <Meals />
+      }
     ]
   }
 ]);
