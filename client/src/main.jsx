@@ -1,5 +1,12 @@
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+<<<<<<< Updated upstream
+=======
+import App from './App.jsx'
+import Home from './pages/Home.jsx';
+import Signup from './pages/signup.jsx';
+import Login from './pages/login.jsx';
+>>>>>>> Stashed changes
 import './index.css'
 
 // router paths
@@ -17,10 +24,30 @@ const router = createBrowserRouter([
         index: true, 
         element: <Home />
       }, 
+<<<<<<< Updated upstream
       {
         path: '/meals',
         element: <Meals />
       }
+=======
+      // example "home" do this for rest of routes to other jsx pages , comment out when running
+      // {
+      //   path: '/home',
+      //   element: <Home />
+      // },
+      {
+        path: '/signup',
+        element: <Signup />
+      },
+      {
+        path: '/login',
+        element: <Login />
+      }
+      // {
+      //   path: '/',
+      //   element: < />
+      // },
+>>>>>>> Stashed changes
     ]
   }
 ]);

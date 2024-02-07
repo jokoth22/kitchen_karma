@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 
@@ -41,6 +43,7 @@ const LoginPage = (props) => {
 
 return (
     <main>
+        <h2>Don't have an account? <Link to='/signup'>Sign Up!</Link></h2>
         <h1>Login</h1>
     <div>
         <form onSubmit={handleFormSubmit}>
