@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 
-import Auth from '../utils/auth';
+// import Auth from '../utils/auth';
 
 const Signup = () => {
     const [formState, setFormState] = useState({
@@ -39,6 +40,7 @@ const Signup = () => {
 
     return (<main>
         <div>
+          <h2>Already Signed Up? <Link to='/login'>Login!</Link></h2>
             <h1>Sign Up!</h1>
             <form onSubmit={handleFormSubmit}>
             <input
