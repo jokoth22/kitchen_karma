@@ -2,13 +2,13 @@ import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import Header from "../../components/header/header";
 
-const Meals = () => {
+const Account = () => {
   return (
     <Theme>
       <Header />
-      <h1>Meals</h1>
+      <h1>Account</h1>
     </Theme>
   );
 };
 
-export default Meals;
+export default Account;

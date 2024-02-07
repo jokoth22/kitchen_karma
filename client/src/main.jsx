@@ -6,6 +6,7 @@ import './index.css'
 import App from './App.jsx'
 import Home from './pages/home/Home.jsx';
 import Meals from './pages/meals/Meals.jsx';
+import Account from './pages/account/account.jsx';
 
 // creates a router - component loads based on path
 const router = createBrowserRouter([
@@ -20,7 +21,11 @@ const router = createBrowserRouter([
       {
         path: '/meals',
         element: <Meals />
-      }
+      },
+      {
+        path: '/account',
+        element: <Account />
+      },
     ]
   }
 ]);
