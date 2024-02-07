@@ -1,4 +1,4 @@
-const { User, Day, Meal } = require('../models');
+const { User } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
@@ -46,26 +46,19 @@ const resolvers = {
 
       return { token, user };
     },
-    addDay: async (parent, {dayId}, context) => {
-      if(context.user){
-        const dayPlan= await Day.create({
-          dayId,
-          carbGoal: context.user.carbGoal,
-          proteinGoal: context.user.proteinGoal,
-          fatsGoal: context.user.fatsGoal,
-          calorieGoal: context.user.calorieGoal
-        });
-
-        await User.findOneAndUpdate(
-          {_id: context.user._id},
-          { $addToSet: {mealsByDay: day._id}}
-        );
-
-        return dayPlan;
-      }
+    addDay: async (parent, { dayData }, context) => {
+        try {
+          const updatedUser = await User.findOneAndUpdate(
+            { _id: context.user._id},
+            { $addToSet: {mealsByDay: dayData } },
+            { new: true, runValidators: true }
+          );
+          return updatedUser;
+    } catch (err) {
+      console.log(err);
       throw AuthenticationError;
-      ('You need to be logged in!');
-    },
+    }
+  },
     addMeal: async (parent, {dayId, mealId}, context) => {
       if(context.user){
         return Day.findOneAndUpdate (
@@ -84,19 +77,15 @@ const resolvers = {
       throw AuthenticationError;
     },
     removeDay: async (parent, { dayId }, context) => {
-      if (context.user) {
-        const day = await Day.findOneAndDelete({
-          _id: dayId,
-        });
-
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { mealsByDay: day._id } }
-        );
-
-        return day;
-      }
+     const updatedUser = await User.findOneAndUpdate(
+      { _id: context.user._id },
+      { $pull: { mealsByDay: { _id: dayId } } },
+      { new: true }
+     );
+     if (!updatedUser) {
       throw AuthenticationError;
+     }
+     return updatedUser;
     },
     removeMeal: async (parent, { dayId, mealId }, context) => {
       if (context.user) {
