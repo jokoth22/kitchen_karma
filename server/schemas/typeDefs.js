@@ -9,6 +9,7 @@ const typeDefs = `
 
   type Day {
     _id: ID!
+    dayName: String!
     carbGoal: Int!
     proteinGoal: Int!
     fatsGoal: Int!
