@@ -1,3 +1,4 @@
 const User = require('./User');
+const Day = require('./Day');
 
-module.exports = { User };
+module.exports = { User, Day };

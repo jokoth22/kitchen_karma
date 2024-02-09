@@ -1,3 +1,6 @@
+// Not Utilized
+// Deprecated
+
 const { Schema } = require('mongoose');
 
 const mealSchema = new Schema(
