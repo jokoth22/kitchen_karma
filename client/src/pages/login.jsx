@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-
+import { Link, redirect } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import { ADD_USER } from '../utils/mutations';
+import { LOGIN_USER } from '../utils/mutations';
+import AuthService from '../utils/auth';
 
-const LoginPage = (props) => {
-
-  const handleLogin = (props) => {
-    const [formState, setFormState] = useState({ email: '', password: ''});
-    const [login, {error, data}] = useMutation(LOGIN_USER);
+const LoginPage = () => {
+    const [formState, setFormState] = useState({ email: '', password: '' });
+    const [loginUser, { error }] = useMutation(LOGIN_USER);
+    // const navigate = useNavigate();
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-
         setFormState({
             ...formState,
             [name]: value,
@@ -21,53 +19,52 @@ const LoginPage = (props) => {
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-        console.log(formState);
         try {
-            const { data } = await login ({
+            const { data } = await loginUser({
                 variables: { ...formState },
             });
-            
-            Auth.login(data.login.token);
+            console.log(data);
+            if (data && data.login && data.login.token) {
+                AuthService.login(data.login.token);
+                console.log('logged in');
+                window.location.replace('/meals');
+            }
         } catch (e) {
             console.error(e);
         }
+    };
 
-        setFormState({
-            email: '',
-            password: '',
-          });      
-
-    }
-
-};
-
-return (
-    <main>
-        <h2>Don't have an account? <Link to='/signup'>Sign Up!</Link></h2>
-        <h1>Login</h1>
-    <div>
-        <form onSubmit={handleFormSubmit}>
-        <label for='usernamefield'>Username:</label>
-        <input 
-        id='usernamefield'
-        name='usernamefield' 
-        placeholder='Your Username' 
-        value={formState.email} 
-        onchange={handleChange}></input>
-        <br></br>
-        <br></br>
-        <label for='passwordfield'>Password:</label>
-        <input 
-        id='passwordfield'
-        name='passwordfield' 
-        placeholder='Your Password' 
-        value={formState.email} 
-        onchange={handleChange}></input>
-        <button type="submit">Submit</button>
-        </form>
-    </div>
-    </main>
-);
+    return (
+        <main>
+            <h2>Don't have an account? <Link to='/signup'>Sign Up!</Link></h2>
+            <h1>Login</h1>
+            <div>
+                <form onSubmit={handleFormSubmit}>
+                        <label htmlFor='email'>Email:</label>
+                    <input
+                        id='email'
+                        name='email'
+                        type='email'
+                        placeholder='Your Email'
+                        value={formState.email}
+                        onChange={handleChange}
+                    />
+                    <br />
+                    <br />
+                    <label htmlFor='password'>Password:</label>
+                    <input
+                        id='password'
+                        name='password'
+                        type='password'
+                        placeholder='Your Password'
+                        value={formState.password}
+                        onChange={handleChange}
+                    />
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </main>
+    );
 };
 
 export default LoginPage;
