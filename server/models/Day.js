@@ -1,13 +1,14 @@
-const { Schema, model } = require('mongoose');
+const { Schema } = require('mongoose');
 
-//const mealSchema = require('./Meal');
-//const dateFormat = require('../utils/dateFormat');
+const mealSchema = require('./Meal');
+const dateFormat = require('../utils/dateFormat');
 
 const daySchema = new Schema(
     {
-        dayName: {
-            type: String,
-            required: true,
+        dayNumber: {
+            type: Date,
+            default: Date.now,
+            get: (timestamp) => dateFormat(timestamp),
         },
         carbGoal: {
             type: Number,
@@ -37,25 +38,12 @@ const daySchema = new Schema(
                 message: `{Value} is not an integer value for caloriesGoal`,
             }
         },
-        savedMeals: [
-            {
-                mealName: {
-                    type: String,
-                    required: true,
-                },
-                mealId: {
-                    type: String,
-                    required: true,
-                }, 
-                completed: {
-                    type: Boolean,
-                    default: false
-                },
-            },
-        ]
+        savedMeals: [mealSchema]
     }
 );
 
-const Day = model('Day', daySchema);
+daySchema.virtual('mealCount').get(function() {
+    return this.savedMeals.length;
+})
 
-module.exports = Day;
+module.exports = daySchema;

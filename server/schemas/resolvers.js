@@ -1,4 +1,4 @@
-const { User, Day } = require('../models');
+const { User } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
@@ -59,22 +59,22 @@ const resolvers = {
       throw AuthenticationError;
     }
   },
-    addMeal: async (parent, { dayId, mealId, mealName }, context) => {
-      
+    addMeal: async (parent, {dayId, mealId}, context) => {
       if(context.user){
-        return User.findOneAndUpdate (
-          {_id: context.user._id },
-          { $addToSet: { savedMeals: {
-            mealId: mealId,
-            mealName: mealName,
-          } } },
+        return Day.findOneAndUpdate (
+          {_id: dayId },
+          {
+            $addToSet: {
+              savedMeals: {mealId},
+            },
+          },
           {
             new: true,
             runValidators: true,
           }
         );
       }
-      throw AuthenticationError; 
+      throw AuthenticationError;
     },
     removeDay: async (parent, { dayId }, context) => {
      const updatedUser = await User.findOneAndUpdate(
