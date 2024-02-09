@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export const LOGIN_USER = gql`
   mutation loginUser ($email: String!, $password: String!) {
-    loginUser (email: $email, password: $password) {
+    login (email: $email, password: $password) {
       token
       user {
         _id
@@ -23,7 +23,7 @@ export const ADD_USER = gql`
   }
 `;
 export const ADD_MEAL = gql`
-  mutation addMeal ($mealId: ID!, $dayID: ID!, mealName: String!) {
+  mutation addMeal ($mealId: ID!, $dayID: ID!, $mealName: String!) {
     day (mealId: $mealId, dayId: $dayID, mealName: $mealName) {
         _id
         savedMeals {
@@ -43,17 +43,20 @@ export const REMOVE_MEAL = gql`
     }
   }
 `;
+
 export const ADD_DAY = gql`
-  mutation addDay ($dayID: ID!) {
-    user (dayID: $dayID){
+  mutation addDay($name: String!) {
+    addDay(name: $name) {
+      _id
+      name
+      mealsByDay {
         _id
-        mealsByDay {
-            _id
-            savedMeals
-        }
+        savedMeals
+      }
     }
   }
 `;
+
 export const REMOVE_DAY = gql`
   mutation removeDay ($dayID: ID!) {
     user (dayID: $dayID){

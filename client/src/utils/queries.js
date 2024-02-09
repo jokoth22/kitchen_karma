@@ -49,3 +49,15 @@ export const QUERY_USER = gql`
         }
     }
 `;
+
+export const GET_DAY = gql`
+  query GetDays {
+    days {
+      _id
+      name
+      meals {
+        _id
+      }
+    }
+  }
+`;

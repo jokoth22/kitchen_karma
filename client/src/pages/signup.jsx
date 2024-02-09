@@ -1,10 +1,8 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
-
-// import Auth from '../utils/auth';
+import Auth from '../utils/auth';
 
 const Signup = () => {
     const [formState, setFormState] = useState({
@@ -38,31 +36,41 @@ const Signup = () => {
       }
     };
 
-    return (<main>
-        <div>
-          <h2>Already Signed Up? <Link to='/login'>Login!</Link></h2>
-            <h1>Sign Up!</h1>
-            <form onSubmit={handleFormSubmit}>
-            <input
-                  className="form-input"
-                  placeholder="Choose a Username!"
-                  name="username"
-                  type="text"
-                  value={formState.name}
-                  onChange={handleChange}
-                />
+    return (
+        <main>
+            <div>
+                <h2>Already Signed Up? <Link to='/LoginPage'>Login!</Link></h2>
+                <h1>Sign Up!</h1>
+                <form onSubmit={handleFormSubmit}>
                 <input
-                  className="form-input"
-                  placeholder="Choose a Password!"
-                  name="password"
-                  type="password"
-                  value={formState.password}
-                  onChange={handleChange}
-                />
-                <button type="submit"> Submit </button>
-            </form>
-        </div>
-    </main>)
-}
+                        className="form-input"
+                        placeholder="Enter your Username"
+                        name="username"
+                        type="username"
+                        value={formState.username}
+                        onChange={handleChange}
+                    />
+                    <input
+                        className="form-input"
+                        placeholder="Enter your Email"
+                        name="email"
+                        type="email"
+                        value={formState.email}
+                        onChange={handleChange}
+                    />
+                    <input
+                        className="form-input"
+                        placeholder="Choose a Password!"
+                        name="password"
+                        type="password"
+                        value={formState.password}
+                        onChange={handleChange}
+                    />
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </main>
+    );
+};
 
 export default Signup;
