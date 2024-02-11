@@ -1,6 +1,6 @@
 import { Flex, Text, Button } from '@radix-ui/themes';
 
-export default function MyApp() {
+export default function Theme() {
   return (
     <Flex direction="column" gap="2">
       <Text>Hello from Radix Themes :)</Text>
