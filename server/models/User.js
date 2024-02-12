@@ -22,11 +22,6 @@ const userSchema = new Schema(
         },
         mealsByDay: [daySchema],
     },
-    {
-        toJSON: {
-            virtuals: true,
-        },
-    }
 );
 
 userSchema.pre('save', async function (next) {
@@ -41,10 +36,6 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.isCorrectPassword = async function (password) {
     return bcrypt.compare(password, this.password);
 };
-
-userSchema.virtual('dayCount').get(function () {
-    return this.createdDays.length;
-});
 
 const User = model('User', userSchema);
 

@@ -5,11 +5,6 @@ const dateFormat = require('../utils/dateFormat');
 
 const daySchema = new Schema(
     {
-        dayNumber: {
-            type: Date,
-            default: Date.now,
-            get: (timestamp) => dateFormat(timestamp),
-        },
         carbGoal: {
             type: Number,
             validate: {
@@ -41,9 +36,5 @@ const daySchema = new Schema(
         savedMeals: [mealSchema]
     }
 );
-
-daySchema.virtual('mealCount').get(function() {
-    return this.savedMeals.length;
-})
 
 module.exports = daySchema;
