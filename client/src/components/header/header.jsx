@@ -2,9 +2,9 @@ import React from "react";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import classNames from "classnames";
 import "@radix-ui/themes/styles.css";
-import "../navbar/style.css";
+import "../header/style.css";
 
-const NavBar = () => {
+const Header = () => {
   return (
     <div class="header">
         <a href="/" class="logo">
@@ -16,30 +16,21 @@ const NavBar = () => {
               <NavigationMenu.Item>
                 <NavigationMenu.Link
                   className="NavigationMenuLink"
-                  href="/meals"
-                >
-                  {/* active={isActive} -- client side routing page on radix
-                {...props} */}
+                  href="/Meals">
                   Meals
                 </NavigationMenu.Link>
               </NavigationMenu.Item>
               <NavigationMenu.Item>
                 <NavigationMenu.Link
                   className="NavigationMenuLink"
-                  href="/login"
-                >
-                  {/* active={isActive}
-                {...props} */}
+                  href="/LoginPage">
                   Login
                 </NavigationMenu.Link>
               </NavigationMenu.Item>
               <NavigationMenu.Item>
                 <NavigationMenu.Link
                   className="NavigationMenuLink"
-                  href="/signup"
-                >
-                  {/* active={isActive}
-                {...props} */}
+                  href="/signup">
                   Sign Up
                 </NavigationMenu.Link>
               </NavigationMenu.Item>
@@ -70,4 +61,4 @@ const ListItem = React.forwardRef(
   )
 );
 
-export default NavBar;
+export default Header;

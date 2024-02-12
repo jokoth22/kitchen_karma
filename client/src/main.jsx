@@ -3,10 +3,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css'
 
 // router paths
-import App from './App'
-import Home from './pages/home/Home';
-import Meals from './pages/meals/Meals';
-import Account from './pages/account/account';
+import App from './App.jsx'
+import Home from './pages/home/Home.jsx';
+// import MealsComponent from './pages/meals/Meals.jsx';
+import Meals from './pages/meals/zackMeals.jsx';
+import Signup from './pages/signup/signup.jsx';
+import LoginPage from './pages/login/login.jsx';
 
 // creates a router - component loads based on path
 const router = createBrowserRouter([
@@ -24,12 +26,17 @@ const router = createBrowserRouter([
       },
       {
         path: '/meals',
+        // element: <MealsComponent />
         element: <Meals />
       },
       {
-        path: '/account',
-        element: <Account />
+        path: '/signup',
+        element: <Signup />
       },
+      {
+        path: '/loginpage',
+        element: <LoginPage />
+      }
     ]
   }
 ]);

@@ -1,114 +1,45 @@
-import {
-  Theme,
-  Flex,
-  Text,
-  TextField,
-  Dialog,
-  Button,
-  Table
-} from "@radix-ui/themes";
-import "@radix-ui/themes/styles.css";
-import NavBar from "../../components/navbar/navbar";
-import Footer from "../../components/footer/footer";
-import "../meals/style.css";
+import React, { useState } from 'react';
+import { useMutation, useQuery } from '@apollo/client';
+import { ADD_DAY } from '../../utils/mutations'; // Import your mutation file
+import DayComponent from '../DayComponent';
 
-const Meals = () => {
-  return (
-    <Theme>
-      <NavBar />
-      <h1>Meals</h1>
-      <Flex direction="column" gap="3" style={{ maxWidth: 100 }}></Flex>
-      <TextField.Input placeholder="Search saved meals" size="2" radius="medium" />
-      <Dialog.Root>
-        <Dialog.Trigger>
-          <Button>Add Day</Button>
-        </Dialog.Trigger>
+// Import your GraphQL query to fetch days
+import { GET_DAY } from '../../utils/queries'; 
 
-        <Dialog.Content style={{ maxWidth: 450 }}>
-          <Dialog.Title>Add Day</Dialog.Title>
-          <Dialog.Description size="2" mb="4">
-            Add a meal to track
-          </Dialog.Description>
+const MealsComponent = () => {
+    const [addDay] = useMutation(ADD_DAY);
+    const { loading, error, data } = useQuery(GET_DAY); // Use your query to fetch days
 
-          <Flex direction="column" gap="3">
-            <label>
-              <Text as="div" size="2" mb="1" weight="bold">
-                Day
-              </Text>
-              <TextField.Input
-                defaultValue="Tuesday 2/13/24"
-                placeholder="Enter day you are meal planning"
-              />
-            </label>
-            <label>
-              <Text as="div" size="2" mb="1" weight="bold">
-                Meal
-              </Text>
-              <TextField.Input
-                defaultValue="Quinoa"
-                placeholder="Enter meal you are planning"
-              />
-            </label>
-            <label>
-              <Text as="div" size="2" mb="1" weight="bold">
-                Macro Info
-              </Text>
-              <TextField.Input
-                defaultValue="Good Protein"
-                placeholder="Enter meal macros"
-              />
-            </label>
-          </Flex>
+    const handleAddDay = async () => {
+        try {
+            const dayName = prompt('Enter a name for the new day:');
+            if (!dayName) return;
 
-          <Flex gap="3" mt="4" justify="end">
-            <Dialog.Close>
-              <Button variant="soft" color="gray">
-                Cancel
-              </Button>
-            </Dialog.Close>
-            <Dialog.Close>
-              <Button>Save</Button>
-            </Dialog.Close>
-          </Flex>
-        </Dialog.Content>
-      </Dialog.Root>
+            const { data: addDayData } = await addDay({
+                variables: {
+                    name: dayName
+                }
+            });
+            console.log('New Day Added:', addDayData.addDay);
+        } catch (error) {
+            console.error('Error adding day:', error);
+        }
+    };
 
-      {/* current meals */}
-      {/* add day / delete */}
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error.message}</p>;
 
-      <Table.Root>
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeaderCell>Day</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Meal</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Macro Info</Table.ColumnHeaderCell>
-          </Table.Row>
-        </Table.Header>
-
-        <Table.Body>
-          <Table.Row>
-            <Table.RowHeaderCell>Wednesday 2/14/24</Table.RowHeaderCell>
-            <Table.Cell>Yogurt</Table.Cell>
-            <Table.Cell>Protein?</Table.Cell>
-          </Table.Row>
-
-          <Table.Row>
-            <Table.RowHeaderCell>Thursday 2/15/24</Table.RowHeaderCell>
-            <Table.Cell>Rock Soup</Table.Cell>
-            <Table.Cell>Cronchy</Table.Cell>
-          </Table.Row>
-
-          <Table.Row>
-            <Table.RowHeaderCell>Thursday 2/15/24</Table.RowHeaderCell>
-            <Table.Cell>Oxygen</Table.Cell>
-            <Table.Cell>Free</Table.Cell>
-          </Table.Row>
-        </Table.Body>
-      </Table.Root>
-
-      <Footer />
-    </Theme>
-  );
+    return (
+        <div>
+            <h1>Days</h1>
+            <button onClick={handleAddDay}>Add Day</button>
+            <div>
+                {data.days.map(day => (
+                    <DayComponent key={day._id} day={day} />
+                ))}
+            </div>
+        </div>
+    );
 };
 
-export default Meals;
+export default MealsComponent;

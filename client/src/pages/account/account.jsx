@@ -1,6 +1,6 @@
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
-import Navbar from '../../components/navbar/navbar';
+import Navbar from '../../components/header/header';
 
 const Account = () => {
   return (
