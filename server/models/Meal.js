@@ -6,6 +6,10 @@ const mealSchema = new Schema(
             type: String,
             required: true,
         },
+        mealId: {
+            type: String,
+            required: true,
+        },
         calories: {
             type: Number,
             validate: {

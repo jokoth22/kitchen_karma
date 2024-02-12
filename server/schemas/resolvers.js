@@ -47,34 +47,36 @@ const resolvers = {
       return { token, user };
     },
     addDay: async (parent, { dayData }, context) => {
+      console.log(context.user);
+      console.log(dayData);
         try {
           const updatedUser = await User.findOneAndUpdate(
             { _id: context.user._id},
-            { $addToSet: {mealsByDay: dayData } },
+            { $addToSet: { mealsByDay: dayData } },
             { new: true, runValidators: true }
           );
+          console.log(updatedUser);
           return updatedUser;
     } catch (err) {
       console.log(err);
       throw AuthenticationError;
     }
   },
-    addMeal: async (parent, {dayId, mealId}, context) => {
-      if(context.user){
-        return Day.findOneAndUpdate (
-          {_id: dayId },
-          {
-            $addToSet: {
-              savedMeals: {mealId},
-            },
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
+    addMeal: async (parent, {dayId, mealData}, context) => {
+      console.log(dayId);
+      console.log(mealData);
+      console.log(context.user);
+      try {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id, 'mealsByDay._id': dayId },
+          { $push: { 'mealsByDay.$.savedMeals': mealData } },
+          { new: true, runValidators: true }
         );
+        console.log(updatedUser);
+        return updatedUser;
+      } catch (err) {
+        console.log(err);
       }
-      throw AuthenticationError;
     },
     removeDay: async (parent, { dayId }, context) => {
      const updatedUser = await User.findOneAndUpdate(

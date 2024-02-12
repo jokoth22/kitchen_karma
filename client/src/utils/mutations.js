@@ -22,16 +22,50 @@ export const ADD_USER = gql`
     }
   }
 `;
-export const ADD_MEAL = gql`
-  mutation addMeal ($mealId: ID!, $dayID: ID!, $mealName: String!) {
-    day (mealId: $mealId, dayId: $dayID, mealName: $mealName) {
-        _id
-        savedMeals {
-           _id
-           mealName
-        }
+
+export const ADD_DAY = gql`
+mutation addDay($dayData: DayInput!) {
+  addDay(dayData: $dayData) {
+    _id
+    username
+    mealsByDay {
+      _id
+      calorieGoal
+      carbGoal
+      fatsGoal
+      proteinGoal
     }
   }
+}
+`;
+
+export const REMOVE_DAY = gql`
+mutation removeDay($dayId: ID!) {
+  removeDay(dayId: $dayId) {
+    _id
+    username
+    mealsByDay {
+      _id
+      calorieGoal
+      carbGoal
+      fatsGoal
+      proteinGoal
+    }
+  }
+}
+`;
+
+export const ADD_MEAL = gql`
+mutation Mutation($dayId: ID!, $mealData: MealInput!) {
+  addMeal(dayId: $dayId, mealData: $mealData) {
+    _id
+    savedMeals {
+      _id
+      mealId
+      mealName
+    }
+  }
+}
 `;
 export const REMOVE_MEAL = gql`
   mutation removeMeal ($mealId: ID!, $dayID: ID!) {
@@ -39,30 +73,6 @@ export const REMOVE_MEAL = gql`
         _id
         savedMeals {
            _id
-        }
-    }
-  }
-`;
-
-export const ADD_DAY = gql`
-  mutation addDay($name: String!) {
-    addDay(name: $name) {
-      _id
-      name
-      mealsByDay {
-        _id
-        savedMeals
-      }
-    }
-  }
-`;
-
-export const REMOVE_DAY = gql`
-  mutation removeDay ($dayID: ID!) {
-    user (dayID: $dayID){
-        _id
-        mealsByDay {
-            _id
         }
     }
   }
