@@ -1,8 +1,22 @@
+import {
+    Theme,
+    Flex,
+    Text,
+    TextField,
+    Dialog,
+    Button,
+    Table,
+  } from "@radix-ui/themes";
+import "@radix-ui/themes/styles.css";
 import React, { useState } from 'react';
 import { Link, redirect } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import { LOGIN_USER } from '../utils/mutations';
-import AuthService from '../utils/auth';
+import { LOGIN_USER } from '../../utils/mutations';
+import AuthService from '../../utils/auth';
+import Header from "../../components/header/header";
+import Footer from "../../components/footer/footer";
+import "../login/style.css";
+
 
 const LoginPage = () => {
     const [formState, setFormState] = useState({ email: '', password: '' });
@@ -35,6 +49,8 @@ const LoginPage = () => {
     };
 
     return (
+        <div>
+        <Header />
         <main>
             <h2>Don't have an account? <Link to='/signup'>Sign Up!</Link></h2>
             <h1>Login</h1>
@@ -64,6 +80,8 @@ const LoginPage = () => {
                 </form>
             </div>
         </main>
+        <Footer />
+        </div>
     );
 };
 

@@ -1,0 +1,33 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  
+  /* Style for main container */
+  .hero-container {
+    max-width: 1200px; /* Adjust as needed */
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+  }
+  
+  /* Style for smaller containers */
+  .support-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding: 20px;
+  }
+  
+  /* Style for each smaller container */
+  .container {
+    width: calc(50% - 10px); /* Adjust as needed */
+    background-color: #ddd;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  

@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import { ADD_USER } from '../utils/mutations';
-import Auth from '../utils/auth';
+import { ADD_USER } from '../../utils/mutations';
+import Auth from '../../utils/auth';
+import Header from "../../components/header/header";
+import Footer from "../../components/footer/footer";
+import "../signup/style.css";
 
 const Signup = () => {
     const [formState, setFormState] = useState({
@@ -37,6 +40,8 @@ const Signup = () => {
     };
 
     return (
+      <div>
+      <Header />
         <main>
             <div>
                 <h2>Already Signed Up? <Link to='/LoginPage'>Login!</Link></h2>
@@ -70,6 +75,8 @@ const Signup = () => {
                 </form>
             </div>
         </main>
+        <Footer />
+        </div>
     );
 };
 

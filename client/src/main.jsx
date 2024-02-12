@@ -5,9 +5,10 @@ import './index.css'
 // router paths
 import App from './App.jsx'
 import Home from './pages/home/Home.jsx';
-import MealsComponent from './pages/meals/Meals.jsx';
-import Signup from './pages/signup.jsx';
-import LoginPage from './pages/login.jsx';
+// import MealsComponent from './pages/meals/Meals.jsx';
+import Meals from './pages/meals/zackMeals.jsx';
+import Signup from './pages/signup/signup.jsx';
+import LoginPage from './pages/login/login.jsx';
 
 // creates a router - component loads based on path
 const router = createBrowserRouter([
@@ -20,8 +21,13 @@ const router = createBrowserRouter([
         element: <Home />
       }, 
       {
+        path: '/',
+        element: <Home />
+      },
+      {
         path: '/meals',
-        element: <MealsComponent />
+        // element: <MealsComponent />
+        element: <Meals />
       },
       {
         path: '/signup',
