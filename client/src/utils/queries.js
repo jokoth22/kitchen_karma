@@ -14,6 +14,10 @@ query Query {
         proteinGoal
         fatsGoal
         calorieGoal
+        savedMeals {
+          mealId
+          mealName
+        }
       }
     }
   }
