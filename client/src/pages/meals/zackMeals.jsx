@@ -11,8 +11,55 @@ import {
   import Header from "../../components/header/header";
   import Footer from "../../components/footer/footer";
   import "../meals/style.css";
+
+  import { useState } from 'react';
+  import { useMutation } from '@apollo/client';
+  import { ADD_DAY } from "../../utils/mutations";
   
   const Meals = () => {
+
+    const [formData, setFormData] = useState({
+      carbGoal: '',
+      proteinGoal: '',
+      fatsGoal: '',
+      calorieGoal: '',
+    });
+
+    const [addDay, {error}] = useMutation(ADD_DAY);
+
+    const handleInputChange = (event) => {
+      const { name, value } = event.target;
+
+      const integerValue = parseInt(value, 10);
+
+      setFormData({
+        ...formData,
+        [name]: isNaN(integerValue) ? '' : integerValue,
+      });
+    };
+
+    const handleFormSubmit = async (event) => {
+      event.preventDefault();
+      console.log('Form Submitted');
+      try {
+
+        const parsedFormData = {
+          ...formData,
+          carbGoal: parseInt(formData.carbGoal, 10),
+          proteinGoal: parseInt(formData.proteinGoal, 10),
+          fatsGoal: parseInt(formData.fatsGoal, 10),
+          calorieGoal: parseInt(formData.calorieGoal, 10),
+        };
+
+        const { data } = await addDay({
+          variables: { dayData: parsedFormData },
+        });
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     return (
       <Theme>
         <Header />
@@ -25,37 +72,55 @@ import {
           </Dialog.Trigger>
   
           <Dialog.Content style={{ maxWidth: 450 }}>
+            <form onSubmit={handleFormSubmit}>
             <Dialog.Title>Add Day</Dialog.Title>
             <Dialog.Description size="2" mb="4">
               Add a meal to track
             </Dialog.Description>
-  
+
             <Flex direction="column" gap="3">
               <label>
                 <Text as="div" size="2" mb="1" weight="bold">
-                  Day
+                  Carb Goal
                 </Text>
                 <TextField.Input
-                  defaultValue="Tuesday 2/13/24"
-                  placeholder="Enter day you are meal planning"
+                  name="carbGoal"
+                  value={formData.carbGoal}
+                  onChange={handleInputChange}
+                  placeholder="Enter your Carb Goal"
                 />
               </label>
               <label>
                 <Text as="div" size="2" mb="1" weight="bold">
-                  Meal
+                  Protein Goal
                 </Text>
                 <TextField.Input
-                  defaultValue="Quinoa"
-                  placeholder="Enter meal you are planning"
+                  name="proteinGoal"
+                  value={formData.proteinGoal}
+                  onChange={handleInputChange}
+                  placeholder="Enter your Protein Goal"
                 />
               </label>
               <label>
                 <Text as="div" size="2" mb="1" weight="bold">
-                  Macro Info
+                  Fats Goal
                 </Text>
                 <TextField.Input
-                  defaultValue="Good Protein"
-                  placeholder="Enter meal macros"
+                  name="fatsGoal"
+                  value={formData.fatsGoal}
+                  onChange={handleInputChange}
+                  placeholder="Enter your Fats Goal"
+                />
+              </label>
+              <label>
+                <Text as="div" size="2" mb="1" weight="bold">
+                  Calorie Goal
+                </Text>
+                <TextField.Input
+                  name="calorieGoal"
+                  value={formData.calorieGoal}
+                  onChange={handleInputChange}
+                  placeholder="Enter your Calorie Goal"
                 />
               </label>
             </Flex>
@@ -66,10 +131,9 @@ import {
                   Cancel
                 </Button>
               </Dialog.Close>
-              <Dialog.Close>
-                <Button>Save</Button>
-              </Dialog.Close>
+                <Button type="submit">Save</Button>
             </Flex>
+            </form>
           </Dialog.Content>
         </Dialog.Root>
   
