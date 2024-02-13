@@ -169,7 +169,7 @@ import {
       <Table.Cell>Loading...</Table.Cell>
     </Table.Row>
   ) : (
-    mealdata.me.mealsByDay.map((mealdata) => (
+    mealdata?.me?.mealsByDay.map((mealdata) => (
       <Table.Row>
           <Table.Cell key={day.day_id}>{day.day_data}</Table.Cell>
       </Table.Row>
