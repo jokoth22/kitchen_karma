@@ -1,28 +1,22 @@
 import { gql } from '@apollo/client';
 
 export const QUERY_ME = gql`
-    query me {
-        me {
-            _id
-            username
-            email
-            mealsByDay {
-                dayNumber
-                carbGoal
-                proteinGoal
-                fatsGoal
-                calorieGoal
-                savedMeals {
-                    mealName
-                    calories
-                    carbs
-                    protein
-                    fats
-                    completed
-                }
-            }
-        }
+query Query {
+    me {
+      _id
+      username
+      email
+      password
+      mealsByDay {
+        _id
+        name
+        carbGoal
+        proteinGoal
+        fatsGoal
+        calorieGoal
+      }
     }
+  }
 `;
 
 export const QUERY_USER = gql`

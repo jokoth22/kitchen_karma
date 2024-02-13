@@ -13,10 +13,16 @@ import {
   import "../meals/style.css";
 
   import { useState } from 'react';
-  import { useMutation } from '@apollo/client';
+  import { useMutation, useQuery } from '@apollo/client';
   import { ADD_DAY } from "../../utils/mutations";
+  import { QUERY_ME } from '../../utils/queries';
+
   
   const Meals = () => {
+
+    const mealdata = useQuery(QUERY_ME);
+
+    console.log(mealdata)
 
     const [formData, setFormData] = useState({
       carbGoal: '',
@@ -146,38 +152,32 @@ import {
         {/* current meals */}
         {/* add day / delete */}
   
-        
-        {/* <Table.Root>
-          <Table.Header>
-            <Table.Row>
-              <Table.ColumnHeaderCell>Day</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>Meal</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>Macro Info</Table.ColumnHeaderCell>
-            </Table.Row>
-          </Table.Header>
-  
-          <Table.Body>
-            <Table.Row>
-              <Table.RowHeaderCell>Wednesday 2/14/24</Table.RowHeaderCell>
-              <Table.Cell>Yogurt</Table.Cell>
-              <Table.Cell>Protein?</Table.Cell>
-            </Table.Row>
-  
-            <Table.Row>
-              <Table.RowHeaderCell>Thursday 2/15/24</Table.RowHeaderCell>
-              <Table.Cell>Rock Soup</Table.Cell>
-              <Table.Cell>Cronchy</Table.Cell>
-            </Table.Row>
-  
-            <Table.Row>
-              <Table.RowHeaderCell>Thursday 2/15/24</Table.RowHeaderCell>
-              <Table.Cell>Oxygen</Table.Cell>
-              <Table.Cell>Free</Table.Cell>
-            </Table.Row>
-          </Table.Body>
-        </Table.Root> */}
-  
-        <Footer />
+        <Dialog.Root>
+            <Dialog.Trigger>
+                <Button>Add Day</Button>
+            </Dialog.Trigger>
+
+            <Table.Root>
+  <Table.Header>Days</Table.Header>
+  <Table.Row>
+    <Table.ColumnHeaderCell>Day</Table.ColumnHeaderCell>
+    <Table.ColumnHeaderCell>Meal</Table.ColumnHeaderCell>
+    <Table.ColumnHeaderCell>Macro Info</Table.ColumnHeaderCell>
+  </Table.Row>
+  {mealdata.loading ? (
+    <Table.Row>
+      <Table.Cell>Loading...</Table.Cell>
+    </Table.Row>
+  ) : (
+    mealdata.me.mealsByDay.map((mealdata) => (
+      <Table.Row>
+          <Table.Cell key={day.day_id}>{day.day_data}</Table.Cell>
+      </Table.Row>
+    ))    
+  )}
+</Table.Root>
+      </Dialog.Root>
+      <Footer />
       </Theme>
     );
   };
