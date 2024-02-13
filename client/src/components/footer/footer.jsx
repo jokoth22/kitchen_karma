@@ -12,7 +12,7 @@ import "../footer/style.css";
 
 const Footer = () => {
   return (
-        <div class="social-container">
+        <div className="social-container">
         <h3>Socials</h3>
         {/* informational video on macros */}
         <a href="https://www.youtube.com/watch?v=Dup-K8Qs5UI"

@@ -6,11 +6,11 @@ import "../header/style.css";
 
 const Header = () => {
   return (
-    <div class="header">
-        <a href="/" class="logo">
+    <div className="header">
+        <a href="/" className="logo">
           <img src="../src/assets/images/logo.png" alt="Logo" />
         </a>
-        <nav class="header-right">
+        <nav className="header-right">
           <NavigationMenu.Root className="NavigationMenuRoot">
             <NavigationMenu.List className="NavigationMenuList">
               <NavigationMenu.Item>
