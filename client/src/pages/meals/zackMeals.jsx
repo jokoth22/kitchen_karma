@@ -51,10 +51,14 @@ import {
           calorieGoal: parseInt(formData.calorieGoal, 10),
         };
 
+        if (formData.carbGoal && formData.proteinGoal && formData.fatsGoal && formData.calorieGoal) {
         const { data } = await addDay({
           variables: { dayData: parsedFormData },
         });
         console.log(data);
+        } else {
+          alert('All fields are required to create Day!');
+        }
       } catch (err) {
         console.log(err);
       }
@@ -131,7 +135,9 @@ import {
                   Cancel
                 </Button>
               </Dialog.Close>
+              <Dialog.Close>
                 <Button type="submit">Save</Button>
+              </Dialog.Close>
             </Flex>
             </form>
           </Dialog.Content>
@@ -140,7 +146,8 @@ import {
         {/* current meals */}
         {/* add day / delete */}
   
-        <Table.Root>
+        
+        {/* <Table.Root>
           <Table.Header>
             <Table.Row>
               <Table.ColumnHeaderCell>Day</Table.ColumnHeaderCell>
@@ -168,7 +175,7 @@ import {
               <Table.Cell>Free</Table.Cell>
             </Table.Row>
           </Table.Body>
-        </Table.Root>
+        </Table.Root> */}
   
         <Footer />
       </Theme>
