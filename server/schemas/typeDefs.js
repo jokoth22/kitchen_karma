@@ -9,6 +9,7 @@ const typeDefs = `
 
   type Day {
     _id: ID!
+    name: String!
     carbGoal: Int!
     proteinGoal: Int!
     fatsGoal: Int!
@@ -47,15 +48,16 @@ const typeDefs = `
   }
 
   input DayInput {
-    carbGoal: Int
-    proteinGoal: Int
-    fatsGoal: Int
-    calorieGoal: Int
+    name: String!
+    carbGoal: Int!
+    proteinGoal: Int!
+    fatsGoal: Int!
+    calorieGoal: Int!
   }
 
   input MealInput {
-    mealId: String
-    mealName: String
+    mealId: String!
+    mealName: String!
   }
 `;
 

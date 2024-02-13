@@ -5,6 +5,10 @@ const dateFormat = require('../utils/dateFormat');
 
 const daySchema = new Schema(
     {
+        name: {
+            type: String,
+            required: true,
+        },
         carbGoal: {
             type: Number,
             validate: {
