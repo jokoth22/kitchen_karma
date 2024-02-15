@@ -36,7 +36,7 @@ N/A
 ## Questions
     
 Our Github accounts are:
-[GitHub.com/midasantiago](github.com/midasantiago)
+[GitHub.com/midasantiago](github.com/midasantiago), https://github.com/jokoth22, https://github.com/ZackScherl, https://github.com/rgillooly
     
 If you wish to contact us you can do so at:
-mida.santiago98@gmail.com
+mida.santiago98@gmail.com, joyce.okoth22@gmail.com, 
